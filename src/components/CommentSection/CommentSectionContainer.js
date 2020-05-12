@@ -5,20 +5,31 @@ import Comment from "./Comment";
 import "./Comment.css";
 
 const CommentSection = (props) => {
-  //props is an object representing the dataset.
-
   // Add state for the comments
+  let [allComments, addComment] = useState(props.comments);
+  let [currentComment, UpdateComment] = useState("");
 
-  const [comments] = useState(props.comments);
+  console.log(props.allComments);
 
+  const addComments = () => {
+    let newData = allComments;
+    newData.push({ username: "ofrepose", text: "sdfgsg" });
+    console.log(`new data is ${newData}`);
+    addComment(newData);
+  };
+  console.log(typeof allComments);
+  console.log(allComments);
+
+  const getComment = () => {
+    UpdateComment((currentComment = currentComment + CommentInput.value));
+  };
+  console.log(currentComment);
   return (
     <div>
-      {/* map through the comments data and return the Comment component */}
-      {comments.map((comment) => {
-        return <Comment comment={comment} />;
+      {allComments.map((item) => {
+        return <Comment comment={item} />;
       })}
-
-      <CommentInput />
+      <CommentInput submitComment={addComments} />
     </div>
   );
 };
